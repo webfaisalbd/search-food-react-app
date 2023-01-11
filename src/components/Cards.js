@@ -22,6 +22,7 @@ const Cards = ({ data }) => {
 
                             <div className="cardLine"></div>
 
+
                             <div className="lastCard mt-3 d-flex justify-content-between">
                                 <img className='img1' src={d.arrimg} alt="" />
                                 <p>{d.somedata}</p>

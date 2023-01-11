@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Fooddata from '../data';
 import Logo from '../assets/searchFoodLogo.png';
@@ -6,8 +6,33 @@ import { Form } from 'react-bootstrap';
 import Cards from './Cards';
 
 const Food = () => {
-    const [foodData, , setFoodData] = useState(Fooddata);
-    console.log(foodData);
+    const [foodData, setFoodData] = useState(Fooddata);
+
+    const [copyData, setCopyData] = useState([]);
+
+
+
+    const changeData = (e) => {
+        let getData = e.toLowerCase();
+
+        if (getData === "") {
+            setCopyData(foodData)
+        } else {
+            let store = foodData.filter((ele, k) => {
+                return ele.rname.toLowerCase().match(getData);
+            })
+            console.log(store)
+            setCopyData(store);
+        }
+    }
+
+    useEffect(() => {
+        setTimeout(() => {
+            setCopyData(foodData);
+        }, 3000);
+    }, [])
+
+
     return (
         <div>
             <div className="container d-flex justify-content-between align-items-center">
@@ -17,17 +42,23 @@ const Food = () => {
 
             <Form className='mt-3 d-flex justify-content-center'>
                 <Form.Group className="col-lg-4 mx-2" controlId="formBasicEmail">
-                    <Form.Control type="text" placeholder="Search Your Food" />
+                    <Form.Control type="text"
+                        onChange={(e) => changeData(e.target.value)}
+                        placeholder="Search Your Food" />
 
                 </Form.Group>
             </Form>
 
 
             <section className='container mt-4'>
-                <h2 className='px-4' style={{fontWeight: 700}}>Search Food is Open For All</h2>
-            
+                <h2 className='px-4' style={{ fontWeight: 600 }}>Search Food is Open For All</h2>
+
                 <div className='row mt-4 justify-content-around align-items-center'>
-                       <Cards data={Fooddata} /> 
+
+                    {
+                        copyData.length ? <Cards data={copyData} /> : "empty"
+                    }
+
                 </div>
 
             </section>

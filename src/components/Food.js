@@ -4,6 +4,7 @@ import Fooddata from '../data';
 import Logo from '../assets/searchFoodLogo.png';
 import { Form } from 'react-bootstrap';
 import Cards from './Cards';
+import SkeletonPage from './SkeletonPage';
 
 const Food = () => {
     const [foodData, setFoodData] = useState(Fooddata);
@@ -56,8 +57,10 @@ const Food = () => {
                 <div className='row mt-4 justify-content-around align-items-center'>
 
                     {
-                        copyData.length ? <Cards data={copyData} /> : "empty"
+                        copyData.length ? <Cards data={copyData} /> : <SkeletonPage data={foodData} />
                     }
+
+                    
 
                 </div>
 
